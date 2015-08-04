@@ -76,6 +76,9 @@ gulp.task('serve', function() {
   });
 });
 
+// Build files
+gulp.task('build', ['browserify', 'styles', 'views']);
+
 // Watch all of da things
 gulp.task('watch', function() {
   gulp.watch('app/**/*.scss', ['styles']);
@@ -83,8 +86,5 @@ gulp.task('watch', function() {
   gulp.watch('app/*.html', ['views']);
 });
 
-// Build files (eventually this will deploy)
-gulp.task('build', ['browserify', 'styles']);
-
 // Run `gulp` to serve and watch
-gulp.task('default', ['serve', 'browserify', 'views', 'styles', 'watch']);
+gulp.task('default', ['serve', 'build', 'watch']);
