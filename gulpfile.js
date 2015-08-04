@@ -1,19 +1,22 @@
-var gulp = require('gulp');
-var rename = require('gulp-rename');
+var gulp          = require('gulp'),
+    rename        = require('gulp-rename'),
 
-// Build Dependencies
-var browserify = require('gulp-browserify');
-var uglify = require('gulp-uglify');
+    // JS Dependencies
+    browserify    = require('gulp-browserify'),
+    uglify        = require('gulp-uglify'),
+    concat        = require('gulp-concat'),
 
-// Style Dependencies
-var sass = require('gulp-sass');
-var prefix = require('gulp-autoprefixer');
-var minifyCSS = require('gulp-minify-css');
+    // Style Dependencies
+    sass          = require('gulp-sass'),
+    prefix        = require('gulp-autoprefixer'),
+    minifyCSS     = require('gulp-minify-css'),
 
-// Development Dependencies
-var jshint = require('gulp-jshint');
+    // Development Dependencies
+    jshint        = require('gulp-jshint'),
+    browserSync   = require('browser-sync'),
+    reload        = browserSync.reload;
 
-// Linting (all settings are configured in .jshintrc)
+// JavaScript linting (all settings are configured in .jshintrc)
 gulp.task('lint', function() {
   return gulp.src('./app/**/*.js')
     .pipe(jshint())
@@ -22,41 +25,66 @@ gulp.task('lint', function() {
 
 // Build all of the javascripts
 gulp.task('browserify', ['lint'], function() {
-  return gulp.src('app/app.js')
+  return gulp.src('app/js/app.js')
     .pipe(browserify({
-      insertGlobals: true
+      insertGlobals: true,
+      debug: true
     }))
-    .pipe(gulp.dest('build'))
-    .pipe(gulp.dest('public/js'));
+    // Bundle to a single file
+    .pipe(concat('app.js'))
+    // Minify
+    .pipe(uglify())
+    .pipe(rename('app.min.js'))
+    // Output it to our dist folder
+    .pipe(gulp.dest('public/js'))
+    .pipe(reload({stream:true}));
 });
 
+// Build all of the sass
 gulp.task('styles', function() {
   return gulp.src('app/sass/all.scss')
     .pipe(sass())
     .pipe(prefix({ cascade: true }))
-    .pipe(gulp.dest('build'))
-    .pipe(gulp.dest('public/css'));
-});
-
-gulp.task('minify', ['styles'], function() {
-  return gulp.src('build/all.css')
     .pipe(minifyCSS())
     .pipe(rename('all.min.css'))
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('public/css'))
+    .pipe(reload({stream:true}));
 });
 
-gulp.task('uglify', ['browserify'], function() {
-  return gulp.src('build/app.js')
-    .pipe(uglify())
-    .pipe(rename('all.app.js'))
-    .pipe(gulp.dest('public/js'));
+// Views task
+gulp.task('views', function() {
+  // Get our index.html
+  gulp.src('app/index.html')
+  // And put it in the dist folder
+  .pipe(gulp.dest('public/'))
+  .pipe(reload({stream:true}));
+
+  // Any other view files from app/views
+  gulp.src('./app/templates/**/*')
+  // Will be put in the dist/views folder
+  .pipe(gulp.dest('app/teplates/'))
+  .pipe(reload({stream:true}));
 });
 
-gulp.task('build', ['uglify', 'minify']);
+// Static Server & auto reload
+gulp.task('serve', function() {
+  browserSync({
+      port: 1337,
+      server: {
+          baseDir: "public/"
+      }
+  });
+});
 
+// Watch all of da things
 gulp.task('watch', function() {
-  gulp.watch('app/**/*.js', ['browserify']);
+  gulp.watch('app/**/*.scss', ['styles']);
+  gulp.watch('app/**/*.js', ['jshint', 'browserify']);
+  gulp.watch('app/*.html', ['views']);
 });
 
-// Run `gulp` to build & watch
-gulp.task('default', ['build', 'watch']);
+// Build files (eventually this will deploy)
+gulp.task('build', ['browserify', 'styles']);
+
+// Run `gulp` to serve and watch
+gulp.task('default', ['serve', 'browserify', 'views', 'styles', 'watch']);

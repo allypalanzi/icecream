@@ -12,11 +12,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.8.2",
     "browserify": "^11.0.1",
     "browserify-shim": "^3.8.10",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.0",
     "gulp-jshint": "^1.11.2",
     "gulp-minify-css": "^1.2.0",
     "gulp-rename": "^1.2.2",
@@ -24,11 +26,11 @@
     "gulp-uglify": "^1.2.0"
   },
   "browserify-shim": {
-     "jquery": "$"
-   },
-   "browserify": {
-     "transform": [
-       "browserify-shim"
-     ]
-   }
+    "jquery": "$"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  }
 }
