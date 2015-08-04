@@ -82,7 +82,7 @@ gulp.task('build', ['browserify', 'styles', 'views']);
 // Watch all of da things
 gulp.task('watch', function() {
   gulp.watch('app/**/*.scss', ['styles']);
-  gulp.watch('app/**/*.js', ['jshint', 'browserify']);
+  gulp.watch('app/**/*.js', ['browserify']);
   gulp.watch('app/*.html', ['views']);
 });
 
