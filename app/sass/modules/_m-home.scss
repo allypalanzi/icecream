@@ -1,0 +1,17 @@
+// Home screen - move to partial later
+.screen-home {
+  &__nav {
+    width: 100%;
+    background: $color-dark-pink;
+    padding: 20px;
+  }
+  &__nav--logo,
+  &__nav--map {
+    display: inline-block;
+    width: 50%;
+    color: $color-light;
+  }
+  &__nav--map {
+    text-align: right;
+  }
+}
