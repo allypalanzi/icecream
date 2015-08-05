@@ -1,3 +1,4 @@
-var view = require('./views/locationView');
+var $ = require('jquery');
+var LocationView = require('./views/locationView');
 
-view(1,2);
+var uhg = new LocationView();

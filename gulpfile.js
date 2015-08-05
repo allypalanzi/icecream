@@ -33,7 +33,7 @@ gulp.task('browserify', ['lint'], function() {
     // Bundle to a single file
     .pipe(concat('app.js'))
     // Minify
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(rename('app.min.js'))
     // Output it to our dist folder
     .pipe(gulp.dest('public/js'))

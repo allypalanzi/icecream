@@ -25,12 +25,9 @@
     "gulp-sass": "^2.0.4",
     "gulp-uglify": "^1.2.0"
   },
-  "browserify-shim": {
-    "jquery": "$"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
+  "dependencies": {
+    "backbone": "^1.2.1",
+    "jquery": "^2.1.4",
+    "underscore": "^1.8.3"
   }
 }
