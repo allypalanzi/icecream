@@ -8,6 +8,8 @@
 }
 
 body {
+  font-family: $font-paragraph;
+  font-size: 18px;
   color: $color-default-font;
-  background: $color-light-yellow;
+  background: lighten($color-mint-green, 25%);
 }

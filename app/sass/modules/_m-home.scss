@@ -2,7 +2,7 @@
 .screen-home {
   &__nav {
     width: 100%;
-    background: $color-dark-pink;
+    background: $color-mint-green;
     padding: 20px;
   }
   &__nav--logo,
@@ -13,5 +13,42 @@
   }
   &__nav--map {
     text-align: right;
+  }
+
+  &__business {
+    width: 80%;
+    margin: 50px auto 0 auto;
+    &--name {
+      color: $color-dark-pink;
+      font-size: 1.7em;
+      font-weight: 900;
+      text-align: center;
+    }
+    &--meta {
+      margin: 20px 0;
+      font-size: 0.8em;
+    }
+    &--meta-miles,
+    &--meta-open {
+      display: inline-block;
+      width: 50%;
+    }
+    &--meta-miles {
+      color: lighten($color-default-font, 25%);
+    }
+    &--meta-open {
+      text-align: right;
+      span {
+        padding: 5px;
+        border-radius: 3px;
+      }
+      &.open span {
+        background: #3DBE6D;
+        color: #fff;
+      }
+      &.closed span {
+        //
+      }
+    }
   }
 }
