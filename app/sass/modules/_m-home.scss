@@ -50,5 +50,11 @@
         //
       }
     }
+    &--image {
+      width: 100%;
+      height: 350px;
+      background-image: url('http://www.patternpeople.com/wp-content/uploads/2013/10/pattern_people_salt_and_straw_division_3.jpg');
+      background-size: cover;
+    }
   }
 }
